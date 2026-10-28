@@ -89,7 +89,7 @@ h1 span{display:block}
 @media(max-width:560px){.meta{flex-direction:column;gap:6px}.meta i{display:none}.kicker i{flex-basis:30px}}
 
 /* ---------- Таймер ---------- */
-.timer{padding:30px 0;border-block:1px solid var(--line);background:var(--bg)}
+.timer{padding:30px 0;border-block:1px solid var(--line);background:transparent}
 .timer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px 48px}
 .timer p{font-family:var(--display);font-weight:500;text-transform:uppercase;font-size:1.3rem;letter-spacing:.04em}
 .cd{display:flex;gap:clamp(14px,4vw,40px)}
@@ -99,7 +99,7 @@ h1 span{display:block}
 #cd-msg{display:none;color:var(--gold)}
 
 /* ---------- О событии ---------- */
-.about{background:var(--bg);overflow:hidden}
+.about{background:transparent;overflow:hidden}
 .about::before{content:"";position:absolute;left:-20%;top:10%;width:60%;height:80%;background:radial-gradient(closest-side,rgba(180,40,20,.28),transparent);pointer-events:none}
 .about .wrap{position:relative;display:grid;gap:36px;grid-template-columns:1fr}
 .lead{font-family:var(--display);font-weight:500;text-transform:uppercase;font-size:clamp(1.8rem,4.6vw,3.1rem);line-height:1.12;max-width:20ch}
@@ -109,7 +109,7 @@ h1 span{display:block}
 @media(min-width:860px){.about .wrap{grid-template-columns:1.2fr 1fr;align-items:end}}
 
 /* ---------- Программа ---------- */
-.prog{background:linear-gradient(180deg,var(--bg2),var(--bg))}
+.prog{background:transparent}
 .prog-grid{display:grid;gap:56px;grid-template-columns:1fr;align-items:start}
 @media(min-width:900px){.prog-grid{grid-template-columns:.9fr 1.1fr}}
 .cal{max-width:380px;width:100%}
@@ -142,7 +142,7 @@ h1 span{display:block}
 .sp h3{font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:clamp(1.6rem,4vw,2.1rem);line-height:1.15;letter-spacing:.02em}
 
 /* ---------- Место ---------- */
-.place-s{background:var(--bg2)}
+.place-s{background:transparent}
 .place{display:grid;gap:44px;grid-template-columns:1fr;align-items:center}
 @media(min-width:860px){.place{grid-template-columns:1fr 1fr}}
 .addr{font-family:var(--display);font-weight:500;text-transform:uppercase;font-size:clamp(1.8rem,4.6vw,2.8rem);line-height:1.15;margin:.2em 0 .5em}
@@ -162,7 +162,7 @@ h1 span{display:block}
 .pin svg{width:84px;height:auto;filter:drop-shadow(0 10px 22px rgba(255,100,30,.5))}
 
 /* ---------- Приглашение пасторов ---------- */
-.invite{background:linear-gradient(180deg,var(--bg2),var(--bg) 85%);overflow:hidden}
+.invite{background:transparent;overflow:hidden}
 .invite::before{content:"";position:absolute;left:-12%;top:8%;width:62%;height:84%;background:radial-gradient(closest-side,rgba(226,64,27,.34),rgba(255,122,47,.12) 55%,transparent);pointer-events:none}
 .invite .wrap{position:relative;display:grid;gap:44px;grid-template-columns:1fr;align-items:center}
 .invite .arch{width:min(400px,100%);margin:0 auto}
@@ -194,13 +194,37 @@ footer .dev{margin-top:14px;letter-spacing:.06em}
 footer .dev a{color:rgba(255,241,230,.85);text-decoration:underline;text-underline-offset:3px}
 footer .dev a:hover{color:var(--orange)}
 
+/* ---------- Фоновый свет с параллаксом ---------- */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ambient i{position:absolute;left:0;top:0;border-radius:50%;will-change:transform}
+.ambient .a{width:min(130vw,1100px);height:min(130vw,1100px);background:radial-gradient(closest-side,rgba(255,122,47,.30),rgba(226,64,27,.12) 55%,transparent)}
+.ambient .b{width:min(110vw,900px);height:min(110vw,900px);background:radial-gradient(closest-side,rgba(226,64,27,.30),rgba(150,30,15,.10) 55%,transparent)}
+.ambient .c{width:min(80vw,640px);height:min(80vw,640px);background:radial-gradient(closest-side,rgba(255,196,107,.16),transparent)}
+header.hero,.timer,main,footer{position:relative;z-index:1}
+
+/* ---------- Кнопка «Наверх» ---------- */
+.totop{position:fixed;z-index:20;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));
+  width:56px;height:56px;padding:0;border:0;border-radius:50%;background:#150805;color:var(--cream);cursor:pointer;
+  box-shadow:0 8px 28px rgba(0,0,0,.55),0 0 0 1px rgba(255,241,230,.08);
+  opacity:0;visibility:hidden;transform:translateY(14px) scale(.9);
+  transition:opacity .3s ease,transform .3s ease,box-shadow .3s ease,visibility 0s linear .3s}
+.totop.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.totop:hover{box-shadow:0 8px 32px rgba(0,0,0,.55),0 0 24px rgba(255,122,47,.45),0 0 0 1px rgba(255,241,230,.12)}
+.totop:active{transform:scale(.94)}
+.totop svg{display:block;width:100%;height:100%}
+.totop .tr{fill:none;stroke:rgba(255,241,230,.18);stroke-width:3}
+.totop .pr{fill:none;stroke:url(#totop-g);stroke-width:3;stroke-linecap:round;transform:rotate(-90deg);transform-origin:28px 28px}
+.totop .ar{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+
 @media(prefers-reduced-motion:reduce){
   .glow,.streak,h1,.meta,.pill,.verse{animation:none}
+  .totop{transition:none}
   html{scroll-behavior:auto}
 }
 </style>
 </head>
 <body>
+<div class="ambient" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i></div>
 
 <!-- ===================== ОБЛОЖКА ===================== -->
 <header class="hero" id="top">
@@ -334,6 +358,16 @@ footer .dev a:hover{color:var(--orange)}
   <p class="dev">© Разработка и поддержка — <a href="https://max.ru/u/f9LHodD0cOLXRyt-HHmzUi56YxzBthU6tMc1d7oGFsoeq2SccWKkYGIMzfE" target="_blank" rel="noopener">Есина М.В.</a>, 2026</p>
 </footer>
 
+
+<button class="totop" id="totop" type="button" aria-label="Наверх">
+  <svg viewBox="0 0 56 56" aria-hidden="true">
+    <defs><linearGradient id="totop-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF8A3A"/><stop offset="1" stop-color="#E2401B"/></linearGradient></defs>
+    <circle class="tr" cx="28" cy="28" r="25"/>
+    <circle class="pr" id="totop-ring" cx="28" cy="28" r="25"/>
+    <path class="ar" d="M28 37V20M20.500 27.500 28 20l7.500 7.500"/>
+  </svg>
+</button>
+
 <script>
 /* Календарь: ноябрь 2026, неделя с понедельника. 1 ноября = воскресенье. */
 (function(){
@@ -361,6 +395,55 @@ footer .dev a:hover{color:var(--orange)}
     el.s.textContent=Math.floor(t%6e4/1e3);
   }
   tick();setInterval(tick,1000);
+})();
+
+/* Фоновый свет (параллакс) и кнопка «Наверх». Движение привязано к прокрутке и сглажено. */
+(function(){
+  var root=document.documentElement;
+  var A=document.querySelector('.ambient .a'),B=document.querySelector('.ambient .b'),C=document.querySelector('.ambient .c');
+  var btn=document.getElementById('totop'),ring=document.getElementById('totop-ring');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var CIRC=2*Math.PI*25;
+  ring.style.strokeDasharray=CIRC;
+  var cur=window.pageYOffset,tgt=cur,raf=0,docH=1;
+
+  function measure(){docH=Math.max(1,root.scrollHeight-window.innerHeight)}
+  function place(el,cx,cy){
+    var w=el.offsetWidth;
+    el.style.transform='translate3d('+Math.round(cx-w/2)+'px,'+Math.round(cy-w/2)+'px,0)';
+  }
+  function glow(y){
+    var W=window.innerWidth,H=window.innerHeight,p=Math.min(1,Math.max(0,y/docH));
+    place(A,W*(0.15+0.65*p),H*(0.25+0.5*p)+Math.sin(p*Math.PI*6)*H*0.06);
+    place(B,W*(0.88-0.65*p),H*(0.88-0.5*p)+Math.cos(p*Math.PI*5)*H*0.05);
+    place(C,W*(0.5+0.3*Math.sin(p*Math.PI*4)),H*(0.5+0.32*Math.cos(p*Math.PI*3)));
+  }
+  function button(y){
+    var p=Math.min(1,Math.max(0,y/docH));
+    ring.style.strokeDashoffset=CIRC*(1-p);
+    btn.classList.toggle('on',y>window.innerHeight*0.6);
+  }
+  function frame(){
+    cur+=(tgt-cur)*0.09;
+    if(Math.abs(tgt-cur)<0.4)cur=tgt;
+    glow(cur);
+    raf=cur===tgt?0:requestAnimationFrame(frame);
+  }
+  function onScroll(){
+    tgt=window.pageYOffset;
+    measure();
+    button(tgt);
+    if(reduce)return;
+    if(!raf)raf=requestAnimationFrame(frame);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',function(){measure();button(window.pageYOffset);glow(reduce?docH*0.5:cur)});
+  btn.addEventListener('click',function(){
+    window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+  });
+  measure();
+  glow(reduce?docH*0.5:cur);
+  button(cur);
 })();
 </script>
 </body>
